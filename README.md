@@ -55,11 +55,13 @@ Upload your processed data to the Hugging Face Hub.
 uploader.push_to_hub()
 ```
 
-## Example
+## Examples
 
 Here's a complete example to illustrate how to use the **huggify-data** to scrape PDF and save as question-answer pairs in a `.csv` file. The block of code below will scrape it, convert it into a `.csv` and save the file locally.
 
 ```py
+from huggify_data.scrape_modules import *
+
 # Example usage:
 pdf_path = "path_of_pdf.pdf"
 openai_api_key = "sk-API_KEY_HERE
@@ -70,15 +72,13 @@ df = generator.convert_to_dataframe()
 print(df)
 ```
 
-## Example
-
 Here's a complete example to illustrate how to use the **huggify-data** library:
 
 ```py
 import pandas as pd
 from datasets import Dataset, DatasetDict
 from huggingface_hub import HfApi, create_repo
-from huggify_data import DataFrameUploader
+from huggify_data.push_modules import DataFrameUploader
 
 # Example usage:
 df = pd.read_csv('/content/toy_data.csv')
