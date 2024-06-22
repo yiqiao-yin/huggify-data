@@ -57,6 +57,21 @@ uploader.push_to_hub()
 
 ## Example
 
+Here's a complete example to illustrate how to use the **huggify-data** to scrape PDF and save as question-answer pairs in a `.csv` file. The block of code below will scrape it, convert it into a `.csv` and save the file locally.
+
+```py
+# Example usage:
+pdf_path = "path_of_pdf.pdf"
+openai_api_key = "sk-API_KEY_HERE
+generator = PDFQnAGenerator(pdf_path, openai_api_key)
+generator.process_scraped_content()
+generator.generate_questions_answers()
+df = generator.convert_to_dataframe()
+print(df)
+```
+
+## Example
+
 Here's a complete example to illustrate how to use the **huggify-data** library:
 
 ```py
