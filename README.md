@@ -75,9 +75,6 @@ print(df)
 Here's a complete example to illustrate how to use the **huggify-data** library:
 
 ```py
-import pandas as pd
-from datasets import Dataset, DatasetDict
-from huggingface_hub import HfApi, create_repo
 from huggify_data.push_modules import DataFrameUploader
 
 # Example usage:
