@@ -12,49 +12,6 @@ To use **huggify-data**, ensure you have the necessary libraries installed. You 
 pip install huggify-data
 ```
 
-## Usage
-
-Here's a step-by-step guide on how to use **huggify-data**:
-
-1. **Import the necessary libraries**:
-
-```py
-import pandas as pd
-from huggify_data import DataFrameUploader
-```
-
-2. **Load your DataFrame**:
-
-Make sure your DataFrame has columns named `questions` and `answers`.
-
-```py
-df = pd.read_csv('/content/toy_data.csv')
-```
-
-3. **Initialize the DataFrameUploader**:
-
-Provide your Hugging Face token, desired repository name, and username.
-
-```py
-uploader = DataFrameUploader(df, hf_token="<huggingface-token-here>", repo_name='<desired-repo-name>', username='<your-username>')
-```
-
-4. **Process your data**:
-
-Convert the DataFrame into a DatasetDict object.
-
-```py
-uploader.process_data()
-```
-
-5. **Push to Hugging Face Hub**:
-
-Upload your processed data to the Hugging Face Hub.
-
-```py
-uploader.push_to_hub()
-```
-
 ## Examples
 
 Here's a complete example to illustrate how to use the **huggify-data** to scrape PDF and save as question-answer pairs in a `.csv` file. The block of code below will scrape it, convert it into a `.csv` and save the file locally.
@@ -117,7 +74,7 @@ uploader = DataFrameUploader(df, hf_token="<huggingface-token-here>", repo_name=
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/yiqiao-yin/huggify-data/blob/main/LICENSE) file for more details.
 
 ## Contributing
 
@@ -125,4 +82,4 @@ Contributions are welcome! Please open an issue or submit a pull request if you 
 
 ## Contact
 
-For any questions or support, please contact [your-email@example.com].
+For any questions or support, please contact [eagle0504@gmail.com](mailto: eagle0504@gmail.com).
