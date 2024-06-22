@@ -101,10 +101,10 @@ class PDFQnAGenerator:
         ans_series = pd.Series(self.raw_content_answers)
 
         # Create a data frame from the Series objects
-        df = pd.DataFrame({"Question": qns_series, "Answer": ans_series})
+        df = pd.DataFrame({"questions": qns_series, "answers": ans_series})
 
         # Reshape the data frame so that it has one row for each question and its corresponding answer. Drop any rows where there are no answers provided.
-        df = df.explode("Question").reset_index().dropna()
+        df = df.explode("questions").reset_index().dropna()
 
         # Save a .csv file
         file_path_collapsed = self.pdf_path.replace("/", "_").replace(" ", "_")
