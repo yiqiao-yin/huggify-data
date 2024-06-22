@@ -4,6 +4,8 @@
 
 **huggify-data** 📦 is a Python library 🐍 designed to simplify the process of scraping any `.pdf` documents, generating question-answer pairs using `openai`, and then uploading datasets 📊 to the Hugging Face Hub 🤗. It allows you to verify ✅, process 🔄, and push 🚀 your pandas DataFrame directly to Hugging Face, making it easier to share and collaborate 🤝 on datasets.
 
+[![Watch the video](https://img.youtube.com/vi/XLExhyangWw/0.jpg)](https://www.youtube.com/watch?v=XLExhyangWw)
+
 ## Installation
 
 To use **huggify-data**, ensure you have the necessary libraries installed. You can install them using pip:
@@ -21,7 +23,7 @@ from huggify_data.scrape_modules import *
 
 # Example usage:
 pdf_path = "path_of_pdf.pdf"
-openai_api_key = "sk-API_KEY_HERE
+openai_api_key = "<sk-API_KEY_HERE>"
 generator = PDFQnAGenerator(pdf_path, openai_api_key)
 generator.process_scraped_content()
 generator.generate_questions_answers()
@@ -29,7 +31,7 @@ df = generator.convert_to_dataframe()
 print(df)
 ```
 
-Here's a complete example to illustrate how to use the **huggify-data** library:
+Here's a complete example to illustrate how to use the **huggify-data** library to push data (assuming an existing `.csv` file with columns `questions` and `answers` inside) to HuggingFace Hub:
 
 ```py
 from huggify_data.push_modules import DataFrameUploader
