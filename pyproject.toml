@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "huggify-data"
-version = "0.1.5"
+version = "0.1.7"
 description = "This is a helper library to push data to HuggingFace."
 authors = ["Yiqiao Yin <eagle0504@gmail.com>"]
 readme = "README.md"
@@ -14,7 +14,6 @@ datasets = "2.20.0"
 huggingface-hub = "0.23.4"
 openai = "^1.35.3"
 pymupdf = "^1.24.5"
-fitz = "^0.0.1.dev2"
 tqdm = "^4.66.4"
 
 

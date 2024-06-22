@@ -103,10 +103,6 @@ class PDFQnAGenerator:
         # Create a data frame from the Series objects
         df = pd.DataFrame({"Question": qns_series, "Answer": ans_series})
 
-        # Split the question column by \n character and split the answer column by newline characters (\r\n or \n). This ensures that each row contains only one question and its corresponding answer.
-        df["Question"] = df["Question"].str.split("\n")
-        df["Answer"] = df["Answer"].str.split("\r\n|\n")
-
         # Reshape the data frame so that it has one row for each question and its corresponding answer. Drop any rows where there are no answers provided.
         df = df.explode("Question").reset_index().dropna()
 
