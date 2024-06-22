@@ -43,37 +43,6 @@ uploader.process_data()
 uploader.push_to_hub()
 ```
 
-## Class Details
-
-### DataFrameUploader
-
-**DataFrameUploader** is the main class provided by **huggify-data**. 
-
-#### Initialization
-
-```py
-uploader = DataFrameUploader(df, hf_token="<huggingface-token-here>", repo_name='<desired-repo-name>', username='<your-username>')
-```
-
-- **df**: A pandas DataFrame containing the data.
-- **hf_token**: Your Hugging Face API token.
-- **repo_name**: The desired name for the Hugging Face repository.
-- **username**: Your Hugging Face username.
-
-#### Methods
-
-- **verify_dataframe()**:
-    - Checks if the DataFrame has columns named `questions` and `answers`.
-    - Raises a `ValueError` if the columns are not present.
-  
-- **process_data()**:
-    - Verifies the DataFrame.
-    - Converts the data into a DatasetDict object.
-
-- **push_to_hub()**:
-    - Creates a repository on the Hugging Face Hub.
-    - Pushes the DatasetDict to the repository.
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/yiqiao-yin/huggify-data/blob/main/LICENSE) file for more details.
