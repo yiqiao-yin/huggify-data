@@ -2,6 +2,7 @@ import pandas as pd
 from datasets import Dataset, DatasetDict
 from huggingface_hub import HfApi, create_repo
 
+
 class DataFrameUploader:
     def __init__(self, df: pd.DataFrame, hf_token: str, repo_name: str, username: str):
         self.df = df
@@ -15,19 +16,23 @@ class DataFrameUploader:
             raise ValueError("The dataframe must have columns named 'questions' and 'answers'.")
         print("Dataframe verified: columns 'questions' and 'answers' are present.")
         return True
-    
+
     def process_data(self):
         if self.verify_dataframe():
             raw_content_questions = list(self.df['questions'])
             raw_content_answers = list(self.df['answers'])
+            raw_content_qa = [f"### Human: {q} ### Assistant: {a}" for q, a in zip(raw_content_questions, raw_content_answers)]
+
             train_data = {
                 'questions': raw_content_questions,
-                'answers': raw_content_answers
+                'answers': raw_content_answers,
+                'text': raw_content_qa
             }
+            
             train_dataset = Dataset.from_dict(train_data)
             self.dataset_dict = DatasetDict({'train': train_dataset})
             print("Data processed into DatasetDict.")
-        
+
     def push_to_hub(self):
         if self.dataset_dict:
             api = HfApi()

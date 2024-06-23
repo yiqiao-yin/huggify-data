@@ -1,8 +1,10 @@
+from typing import List
+
 import fitz
 import openai
 import pandas as pd
 from tqdm import tqdm
-from typing import List
+
 
 class PDFQnAGenerator:
     def __init__(self, pdf_path: str, openai_api_key: str):
