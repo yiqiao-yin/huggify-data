@@ -33,8 +33,14 @@ class PDFQnAGenerator:
         """
         Process scraped content to replace special characters and split into sentences.
         """
-        self.scraped_content = ' '.join(self.scraped_content)
-        self.scraped_content = [self.scraped_content.split('. ')[i].replace('\n', '').replace('   ', '').replace('  ', '') for i in range(len(self.scraped_content.split('. ')))]
+        self.scraped_content = " ".join(self.scraped_content)
+        self.scraped_content = [
+            self.scraped_content.split(". ")[i]
+            .replace("\n", "")
+            .replace("   ", "")
+            .replace("  ", "")
+            for i in range(len(self.scraped_content.split(". ")))
+        ]
 
     def call_chatgpt(self, query: str, model: str = "gpt-3.5-turbo") -> str:
         """
@@ -93,13 +99,15 @@ class PDFQnAGenerator:
     def convert_to_dataframe(self) -> pd.DataFrame:
         """
         Converts a list of questions and answers into a Pandas DataFrame.
-        
+
         Returns:
             - Pandas DataFrame: The resulting data frame with columns for each question-answer pair.
         """
 
         # Convert lists to Series objects for easier indexing
-        qns_series = pd.Series([question + "\n" for question in self.raw_content_questions])
+        qns_series = pd.Series(
+            [question + "\n" for question in self.raw_content_questions]
+        )
         ans_series = pd.Series(self.raw_content_answers)
 
         # Create a data frame from the Series objects

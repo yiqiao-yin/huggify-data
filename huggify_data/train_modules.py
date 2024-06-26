@@ -4,8 +4,13 @@ import os
 import torch
 from datasets import load_dataset
 from peft import LoraConfig, PeftModel
-from transformers import (AutoModelForCausalLM, AutoTokenizer,
-                          BitsAndBytesConfig, TrainingArguments, logging)
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    TrainingArguments,
+    logging,
+)
 from trl import SFTTrainer
 
 
@@ -35,7 +40,7 @@ class LlamaTrainer:
         model = AutoModelForCausalLM.from_pretrained(
             self.model_name,
             quantization_config=self.bnb_config,
-            device_map=self.device_map
+            device_map=self.device_map,
         )
         model.config.use_cache = False
         model.config.pretraining_tp = 1
@@ -43,7 +48,9 @@ class LlamaTrainer:
         return model
 
     def load_tokenizer(self):
-        tokenizer = AutoTokenizer.from_pretrained(self.model_name, trust_remote_code=True)
+        tokenizer = AutoTokenizer.from_pretrained(
+            self.model_name, trust_remote_code=True
+        )
         tokenizer.pad_token = tokenizer.eos_token
         tokenizer.padding_side = "right"
         return tokenizer
@@ -58,10 +65,24 @@ class LlamaTrainer:
         )
         return peft_config
 
-    def configure_training_arguments(self, output_dir="./results", num_train_epochs=4, per_device_train_batch_size=2,
-                                     gradient_accumulation_steps=2, learning_rate=2e-4, weight_decay=0.001,
-                                     save_steps=0, logging_steps=25, fp16=False, bf16=False, max_grad_norm=0.3,
-                                     max_steps=-1, warmup_ratio=0.03, group_by_length=True, lr_scheduler_type="cosine"):
+    def configure_training_arguments(
+        self,
+        output_dir="./results",
+        num_train_epochs=4,
+        per_device_train_batch_size=2,
+        gradient_accumulation_steps=2,
+        learning_rate=2e-4,
+        weight_decay=0.001,
+        save_steps=0,
+        logging_steps=25,
+        fp16=False,
+        bf16=False,
+        max_grad_norm=0.3,
+        max_steps=-1,
+        warmup_ratio=0.03,
+        group_by_length=True,
+        lr_scheduler_type="cosine",
+    ):
         training_arguments = TrainingArguments(
             output_dir=output_dir,
             num_train_epochs=num_train_epochs,
@@ -80,15 +101,17 @@ class LlamaTrainer:
             group_by_length=group_by_length,
             lr_scheduler_type=lr_scheduler_type,
             gradient_checkpointing=True,  # Enable gradient checkpointing
-            report_to="tensorboard"
+            report_to="tensorboard",
         )
         return training_arguments
 
-    def train_model(self, training_arguments, peft_config, max_seq_length=None, packing=False):
+    def train_model(
+        self, training_arguments, peft_config, max_seq_length=None, packing=False
+    ):
         print("Starting dataset loading...")
         dataset = load_dataset(self.dataset_name, split="train")
         print("Dataset loading completed.")
-        
+
         print("Starting training...")
         trainer = SFTTrainer(
             model=self.model,
@@ -100,12 +123,14 @@ class LlamaTrainer:
             args=training_arguments,
             packing=packing,
         )
-        
+
         try:
             trainer.train()
         except RuntimeError as e:
             if "out of memory" in str(e):
-                print("CUDA out of memory error occurred, attempting to clear cache and retry.")
+                print(
+                    "CUDA out of memory error occurred, attempting to clear cache and retry."
+                )
                 self.clear_cuda_cache()
                 trainer.train()
                 print("Training completed.")
@@ -114,7 +139,9 @@ class LlamaTrainer:
             trainer.model.save_pretrained(self.new_model)
         except RuntimeError as e:
             if "out of memory" in str(e):
-                print("CUDA out of memory error occurred, attempting to clear cache and retry.")
+                print(
+                    "CUDA out of memory error occurred, attempting to clear cache and retry."
+                )
                 self.clear_cuda_cache()
                 trainer.model.save_pretrained(self.new_model)
                 print("Model saved.")
@@ -140,7 +167,9 @@ class LlamaTrainer:
             model = model.merge_and_unload()
         except RuntimeError as e:
             if "out of memory" in str(e):
-                print("CUDA out of memory error occurred, attempting to clear cache and retry.")
+                print(
+                    "CUDA out of memory error occurred, attempting to clear cache and retry."
+                )
                 self.clear_cuda_cache()
                 base_model = AutoModelForCausalLM.from_pretrained(
                     self.model_name,

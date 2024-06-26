@@ -2,7 +2,7 @@
 
 ## Introduction
 
-**huggify-data** 📦 is a Python library 🐍 designed to simplify the process of scraping `.pdf` documents, generating question-answer pairs using `openai`, and then uploading datasets 📊 to the Hugging Face Hub 🤗. This library allows you to verify ✅, process 🔄, and push 🚀 your pandas DataFrame directly to Hugging Face, making it easier to share and collaborate 🤝 on datasets. Additionally, the new version enables users to fine-tune the Llama2 model on their proprietary data, enhancing its capabilities even further.
+**huggify-data** 📦 is a Python library 🐍 designed to simplify the process of scraping `.pdf` documents, generating question-answer pairs using `openai`, converse with the document, and then uploading datasets 📊 to the Hugging Face Hub 🤗. This library allows you to verify ✅, process 🔄, and push 🚀 your pandas DataFrame directly to Hugging Face, making it easier to share and collaborate 🤝 on datasets. Additionally, the new version enables users to fine-tune the Llama2 model on their proprietary data, enhancing its capabilities even further. As the name suggests, the **huggify-data** package enhances your data experience by wrapping it in warmth, comfort, and user-friendly interactions, making data handling feel as reassuring and pleasant as a hug.
 
 [![Watch the video](https://img.youtube.com/vi/XLExhyangWw/0.jpg)](https://www.youtube.com/watch?v=XLExhyangWw)
 
@@ -39,7 +39,18 @@ df = generator.convert_to_dataframe()
 print(df)
 ```
 
-Here's a complete example illustrating how to use the **huggify-data** library to push data (assuming an existing `.csv` file with columns `questions` and `answers`) to Hugging Face Hub:
+Once you have created a data frame of question-answer pairs, you can have a conversation with your data:
+
+```python
+from huggify_data.bot_modules import *
+
+current_prompt = "<question_about_the_document>"
+chatbot = ChatBot(api_key=openai_api_key)
+response = chatbot.run_rag(openai_api_key, current_prompt, df, top_n=2)
+print(response)
+```
+
+Moreover, you can push it to the cloud. Here's a complete example illustrating how to use the **huggify-data** library to push data (assuming an existing `.csv` file with columns `questions` and `answers`) to Hugging Face Hub:
 
 ```python
 from huggify_data.push_modules import DataFrameUploader
