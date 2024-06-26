@@ -6,6 +6,10 @@
 
 [![Watch the video](https://img.youtube.com/vi/XLExhyangWw/0.jpg)](https://www.youtube.com/watch?v=XLExhyangWw)
 
+## Repo
+
+You can access the repo here: [✨ Huggify Data ✨](https://github.com/yiqiao-yin/huggify-data)
+
 ## Installation
 
 To use **huggify-data**, ensure you have the necessary libraries installed. You can easily install them using pip:
@@ -108,3 +112,12 @@ Contributions are welcome! Please open an issue or submit a pull request if you 
 ## Contact
 
 For any questions or support, please contact [eagle0504@gmail.com](mailto: eagle0504@gmail.com).
+
+## About Me
+
+Hello there! I'm excited to share a bit about myself and my projects. Check out these links for more information:
+
+- 🏠 **Personal Site**: [✨ y-yin.io ✨](https://www.y-yin.io/)
+- 🎓 **Education Site**: [📚 Future Minds 📚](https://www.future-minds.io/)
+
+Feel free to explore and connect with me! 😊
