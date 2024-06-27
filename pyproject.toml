@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "huggify-data"
-version = "0.3.7"
+version = "0.3.8"
 description = "This is a helper library to push data to HuggingFace."
 authors = ["Yiqiao Yin <eagle0504@gmail.com>"]
 readme = "README.md"

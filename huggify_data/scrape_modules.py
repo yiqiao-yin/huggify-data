@@ -70,27 +70,34 @@ class PDFQnAGenerator:
         # Return the generated content.
         return content
 
-    def prompt_engineered_api(self, text: str) -> str:
+    def prompt_engineered_api(
+        self,
+        text: str,
+        protocol: str = "Write one question based on the content above. Just write ONE question in a sentence. No more.",
+    ) -> str:
         """
         Generate a question based on the provided text content.
         """
         prompt = f"""
             I have the following content: {text}
 
-            Write one question based on the content above. Just write ONE question in a sentence. No more.
+            {protocol}
         """
 
         resp = self.call_chatgpt(prompt)
 
         return resp
 
-    def generate_questions_answers(self):
+    def generate_questions_answers(
+        self,
+        protocol: str = "Write one question based on the content above. Just write ONE question in a sentence. No more.",
+    ):
         """
         Generate questions and answers from the scraped content.
         """
         for i in tqdm(range(len(self.scraped_content))):
             quest = self.scraped_content[i]
-            resp = self.prompt_engineered_api(quest)
+            resp = self.prompt_engineered_api(quest, protocol)
             this_sample_question = resp.split("###")[0]
             this_sample_answer = self.scraped_content[i]
             self.raw_content_questions.append(this_sample_question)
