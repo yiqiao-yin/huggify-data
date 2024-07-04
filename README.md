@@ -80,13 +80,25 @@ huggingface_token = userdata.get('HF_TOKEN')
 # Initiate
 trainer = LlamaTrainer(model_name, dataset_name, new_model, huggingface_token)
 peft_config = trainer.configure_lora()
-training_args = trainer.configure_training_arguments(num_train_epochs=2)
+training_args = trainer.configure_training_arguments(num_train_epochs=1)
 
-# Training
+# Train
 trainer.train_model(training_args, peft_config)
 
-# Train and save | Run this in a new cell
-trainer.merge_and_save_model()
+# Inference
+some_model, some_tokenizer = trainer.load_model_and_tokenizer(
+    base_model_path="NousResearch/Llama-2-7b-chat-hf",
+    new_model_path="ysa-test-july-4-v3",
+)
+
+prompt = "hi, tell me a joke"
+response = trainer.generate_response(
+    some_model,
+    some_tokenizer,
+    prompt,
+    max_len=200)
+print(response)
+
 ```
 
 To perform inference, please follow the example below:
