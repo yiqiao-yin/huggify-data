@@ -43,6 +43,22 @@ df = generator.convert_to_dataframe()
 print(df)
 ```
 
+When you have a `.csv` or a `pd.DataFrame` frrom the previous chunk of code, you can run the following code to iteratively generate a list of `.md` files from the `.csv` file.
+
+```python
+from huggify_data.bot_modules import ChatBot
+bot = ChatBot(api_key=openai_api_key)
+
+from huggify_data.generate_md_modules import *
+
+# This code will start generate a list of .md files
+# Please make sure you are in the desired directory
+markdown_generator = MarkdownGenerator(bot, df)
+markdown_generator.generate_markdown()
+```
+
+After a list of `.md` files are generated, one can navigate to [here](https://huggingface.co/spaces/eagle0504/llama-openai-demo/blob/main/app.py) to build a chatbot with RAG system to iteratively read in a list of `.md` file using **RAG** or **Retrieval Augmented Generation** pipeline using **llama_index**. 
+
 Once you have created a data frame of question-answer pairs, you can have a conversation with your data:
 
 ```python
